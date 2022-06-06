@@ -1,5 +1,6 @@
 from msilib.schema import File
-
+import urllib.request
+from bs4 import BeautifulSoup
 
 class LangaugeChecker:
     
@@ -15,9 +16,15 @@ class LangaugeChecker:
         pass
 
     def __scrap(self) -> str:
-        return ""
+        weburl = urllib.request.urlopen(url)
+        sourcecode = weburl.read()
+        soup = BeautifulSoup(sourcecode, features="html.parser")
+        web_text = soup.get_text()
+        no_line = web_text.split()
+        done_txt = ''.join(no_line)
+        return done_txt
 
-    #Read language_data.csv file to self.language_data
+    #Read language_data.csv file to self.language_data //
     def __read_data(self) -> str:
         return ""
     
